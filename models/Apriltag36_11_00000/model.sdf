@@ -17,9 +17,28 @@
           </script>
         </material>
       </visual>
+      <collision name='base_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>1.0 1.0 0.01</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode>
+              <min_depth>0.001</min_depth>
+              <max_vel>0</max_vel>
+            </ode>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
      </link>
     <static>1</static>
-        <include>
+    <include>
       <uri>model://polaris_ranger_ev</uri>
       <pose>5 5 0 0 0 0</pose>
     </include>
