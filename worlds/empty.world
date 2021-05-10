@@ -14,9 +14,40 @@
       <uri>model://asphalt_plane</uri>
     </include>
     -->
+    <actor name="moving_car">
     <include>
-      <uri>model://Apriltag36_11_00000</uri>
+        <uri>model://Apriltag36_11_00000</uri>
     </include>
+        <script>
+          <loop>true</loop>
+          <delay_start>0.000000</delay_start>
+          <auto_start>true</auto_start>
+           <trajectory id="0" type="square">
+             <waypoint>
+                <time>0.0</time>
+                <pose>-1 -1 1 0 0 0</pose>
+             </waypoint>
+             <waypoint>
+                <time>1.0</time>
+                <pose>-1 1 1 0 0 0</pose>
+             </waypoint>
+             <waypoint>
+                <time>2.0</time>
+                <pose>1 1 1 0 0 0</pose>
+             </waypoint>
+             <waypoint>
+                <time>3.0</time>
+                <pose>1 -1 1 0 0 0</pose>
+             </waypoint>
+             <waypoint>
+                <time>4.0</time>
+                <pose>-1 -1 1 0 0 0</pose>
+             </waypoint>
+          </trajectory>
+        </script>
+      </actor>
+
+
      <plugin name='wind_plugin' filename='libgazebo_wind_plugin.so'>
       <frameId>base_link</frameId>
       <robotNamespace/>
