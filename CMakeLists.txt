@@ -65,6 +65,11 @@ find_package(TinyXML REQUIRED)
 if (BUILD_GSTREAMER_PLUGIN)
   set(GStreamer_FIND_VERSION "1.0")
   find_package(GStreamer REQUIRED)
+  # GStreamer requires ICU on Mac OS
+  if (APPLE)
+    set(ENV{PKG_CONFIG_PATH} "/usr/local/opt/icu4c/lib/pkgconfig")
+    pkg_search_module(ICU_UC icu-uc)
+  endif()
   if (GSTREAMER_FOUND)
     if("${GAZEBO_VERSION}" VERSION_LESS "8.0")
       find_package (Qt4)
@@ -210,6 +215,12 @@ if (GSTREAMER_FOUND)
     ${GLIB_LDFLAGS}
     gobject-2.0
   )
+
+  if (APPLE)
+    link_libraries(
+      ${ICU_UC_LDFLAGS}
+    )
+  endif()
 endif()
 
 link_directories(
@@ -427,6 +438,14 @@ if (GSTREAMER_FOUND)
     message(STATUS "Found GStreamer: adding gst_video_stream_widget")
   endif()
 endif()
+
+QT5_WRAP_CPP(headers_MOC2 include/gazebo_user_camera_plugin.h)
+add_library(gazebo_user_camera_plugin SHARED ${headers_MOC2} src/gazebo_user_camera_plugin.cpp)
+target_link_libraries(gazebo_user_camera_plugin ${GAZEBO_LIBRARIES} ${Qt5Core_LIBRARIES} ${Qt5Widgets_LIBRARIES} ${Qt5Test_LIBRARIES})
+set(plugins
+  ${plugins}
+  gazebo_user_camera_plugin
+)
 
 # Linux is not consistent with plugin availability, even on Gazebo 7
 #if("${GAZEBO_VERSION}" VERSION_LESS "7.0")

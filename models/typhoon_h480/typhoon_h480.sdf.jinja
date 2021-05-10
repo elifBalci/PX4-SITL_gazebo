@@ -404,7 +404,7 @@
         <plugin name="GstCameraPlugin" filename="libgazebo_gst_camera_plugin.so">
             <robotNamespace></robotNamespace>
             <udpHost>127.0.0.1</udpHost>
-            <udpPort>5600</udpPort>
+            <udpPort>{{ gst_udp_port }}</udpPort>
         </plugin>
         <plugin name="GeotaggedImagesPlugin" filename="libgazebo_geotagged_images_plugin.so">
             <robotNamespace>typhoon_h480</robotNamespace>
@@ -412,6 +412,10 @@
             <width>3840</width>
             <height>2160</height>
             <maximum_zoom>8.0</maximum_zoom>
+            <video_uri>{{ video_uri }}</video_uri>
+            <system_id>{{ mavlink_id }}</system_id>
+            <cam_component_id>{{ cam_component_id }}</cam_component_id>
+            <mavlink_cam_udp_port>{{ mavlink_cam_udp_port }}</mavlink_cam_udp_port>
         </plugin>
       </sensor>
     </link>
@@ -1124,6 +1128,7 @@
       </physics>
     </joint>
 
+    <!--
     <include>
       <uri>model://sonar</uri>
       <pose>0.08 0 -0.03 0 0 3.141592</pose>
@@ -1139,6 +1144,7 @@
         </limit>
       </axis>
     </joint>
+    -->
 
 
     <include>
@@ -1358,8 +1364,8 @@
           <input_index>7</input_index>
           <input_offset>0</input_offset>
           <input_scaling>-3.1415</input_scaling>
-          <zero_position_disarmed>0</zero_position_disarmed>
-          <zero_position_armed>0</zero_position_armed>
+          <zero_position_disarmed>1.5708</zero_position_disarmed>
+          <zero_position_armed>1.5708</zero_position_armed>
           <joint_control_type>position_gztopic</joint_control_type>
           <gztopic>/gimbal_pitch_cmd</gztopic>
           <joint_name>typhoon_h480::cgo3_camera_joint</joint_name>
